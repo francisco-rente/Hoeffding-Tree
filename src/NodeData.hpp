@@ -69,14 +69,17 @@ class NodeData {
     std::tuple<bool, attribute_index_t, data_t, data_t> evaluateSplit() {
         TopSplitBuffer<2, data_t, attribute_index_t> topSplitCandidates;
 
+        // TODO:pipeline
     NodeData_evaluateSplit__attributes:
         for (attribute_index_t i = 0; i < N_Attributes; i++) {
+
         NodeData_evaluateSplit__attributes__pt:
             for (point_index_t p = 0; p < N_pt; p++) {
+#pragma HLS pipeline
                 sample_count_t dist[N_Classes][2], distSum[2] = {0};
-
                 data_t pt = _getSplitPointValue(i, p);
             NodeData_evaluateSplit__attributes__pt__classes:
+
                 for (class_index_t j = 0; j < N_Classes; j++) {
 #pragma HLS unroll
                     sample_count_t distL, distR;
