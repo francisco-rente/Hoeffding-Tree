@@ -12,6 +12,8 @@
 
 - Info sobre o Vitis Analyser: https://docs.xilinx.com/r/en-US/ug1393-vitis-application-acceleration/Vitis-Analyzer-GUI-and-Window-Manager
 
+- HLS tutorials https://github.com/Xilinx/Vitis-Tutorials
+
 
 ## Articles Analysis 
 
