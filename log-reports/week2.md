@@ -1,19 +1,3 @@
-- Falar do setup 
-- Ferramentas 
-- Bug
-- O que aprendi a nível do hardware bit stream para configuração de tabelas lookup, escolha da plataforma, compile times, 
-- Dot product
-- Symlinks entre host e kernel 
-- Passos até ao summary 
-- Placing e Routing stages na compilação 
-- empresas de fpgas 
-- escolha importante da plataforma e métodos específicos 
-- buffers migrados 
-- comparação dos cálculos 
-- analyser
-- passos para recolher dados 
-
-
 # Week 2 Report 
 
 ## Tasks accomplished this week 
@@ -38,12 +22,13 @@
 - The compilation has two main stages, placing of each logic section and routing, based on the floor planning algorithm. The compilation time is proportional to the amount of available space. 
 - Host program setups the buffers that are migrated to the fpga and then retrieved with the results with OCL_check(args) and enqueue migrate.
 - Host <- HW link -> Kernel. 
-
+- Companies producing FPGAs and their marketshare (such as Altera and Xillinx). 
+- VLSI design software and steps of ASIC production. 
 
 ### Notes for future developmments 
 
 - Change allocation method, to correct align warning with align_allocator.
-- Link summary of HW: pratically all information that is needed for a analysis - kernel estimates and guidance, but takes longer). Compile summary of kernel (less info). 
+- Link summary of HW: pratically all information that is needed for a analysis - kernel estimates and guidance, but takes longer). Compile summary of kernel (less info, __enough for the job__). 
 - 3 options: SW/CPU compilation, Kernel compilation and HW link, all necessary for HW execution. 
 - Save the compile logs and statistics on submit, use Vitis analyser for checking progress (vitis ide has links that go directly to them)
 - Useful attributes: latency, LTU lookups, pipeline efficiency. 
