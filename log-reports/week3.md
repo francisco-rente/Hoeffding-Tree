@@ -30,6 +30,8 @@ Possible work:
     - BinaryTree_sortSample__nodes
 3. Allocation correction. 
 4. Software refactoring.
+5. Check HLS violations (see guidance in TreeKernels/HW folder. 
+
 
 Note: kernel compilation offers enough information details. HW_link takes longer than necessary. 
 
@@ -37,6 +39,7 @@ Note: kernel compilation offers enough information details. HW_link takes longer
 ### Evaluate split 
 
 - Can the for loops with fixed ranges be paralelized? 
+- See inner calls for latency issues.
 
 ```
     NodeData_evaluateSplit__attributes:
@@ -83,7 +86,67 @@ Note: kernel compilation offers enough information details. HW_link takes longer
 
 
 ## New support links 
+
 - https://github.com/Xilinx/Vitis_Accel_Examples/blob/master/cpp_kernels/README.md
+
+
+### Current performance stats 
+
+
+```
+===============================================================================
+Version:    v++ v2020.2 (64-bit)
+Build:      SW Build (by xbuild) on 2020-11-18-05:13:29
+Copyright:  Copyright 1986-2020 Xilinx, Inc. All Rights Reserved.
+Created:    Sat Mar 21 16:55:34 2020
+===============================================================================
+
+-------------------------------------------------------------------------------
+Design Name:             pi_container
+Target Device:           xilinx:u250:xdma:201830.2
+Target Clock:            300.000000MHz
+Total number of kernels: 1
+-------------------------------------------------------------------------------
+
+Kernel Summary
+Kernel Name  Type  Target              OpenCL Library  Compute Units
+-----------  ----  ------------------  --------------  -------------
+krnl_Tree    c     fpga0:OCL_REGION_0  pi_container    1
+
+
+-------------------------------------------------------------------------------
+OpenCL Binary:     pi_container
+Kernels mapped to: clc_region
+
+Timing Information (MHz)
+Compute Unit  Kernel Name  Module Name                    Target Frequency  Estimated Frequency
+------------  -----------  -----------------------------  ----------------  -------------------
+krnl_Tree_1   krnl_Tree    p_getSampleCountDistribuition  300.300293        411.015198
+krnl_Tree_1   krnl_Tree    pow_generic_float_s            300.300293        431.59259
+krnl_Tree_1   krnl_Tree    evaluateSplit                  300.300293        213.492737
+krnl_Tree_1   krnl_Tree    train                          300.300293        213.492737
+krnl_Tree_1   krnl_Tree    krnl_Tree                      300.300293        213.492737
+
+Latency Information
+Compute Unit  Kernel Name  Module Name                    Start Interval  Best (cycles)  Avg (cycles)  Worst (cycles)  Best (absolute)  Avg (absolute)  Worst (absolute)
+------------  -----------  -----------------------------  --------------  -------------  ------------  --------------  ---------------  --------------  ----------------
+krnl_Tree_1   krnl_Tree    p_getSampleCountDistribuition  162 ~ 770       162            429           770             0.540 us         1.430 us        2.566 us
+krnl_Tree_1   krnl_Tree    pow_generic_float_s            1               28             28            28              93.324 ns        93.324 ns       93.324 ns
+krnl_Tree_1   krnl_Tree    evaluateSplit                  undef           undef          undef         undef           undef            undef           undef
+krnl_Tree_1   krnl_Tree    train                          undef           undef          undef         undef           undef            undef           undef
+krnl_Tree_1   krnl_Tree    krnl_Tree                      undef           undef          undef         undef           undef            undef           undef
+
+Area Information
+Compute Unit  Kernel Name  Module Name                    FF     LUT    DSP  BRAM  URAM
+------------  -----------  -----------------------------  -----  -----  ---  ----  ----
+krnl_Tree_1   krnl_Tree    p_getSampleCountDistribuition  997    2528   0    0     0
+krnl_Tree_1   krnl_Tree    pow_generic_float_s            4030   3155   0    1     0
+krnl_Tree_1   krnl_Tree    evaluateSplit                  8068   10619  0    1     0
+krnl_Tree_1   krnl_Tree    train                          18345  24049  0    1     0
+krnl_Tree_1   krnl_Tree    krnl_Tree                      22036  31772  0    5     0
+-------------------------------------------------------------------------------
+```
+
 
 
 ### Quick explanation: unroll and pipeline  
