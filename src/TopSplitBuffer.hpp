@@ -11,17 +11,12 @@ class TopSplitBuffer {
     typedef data_T data_t;
     typedef attribute_index_T attribute_index_t;
 
-    // TODO: fine a better method (possible xillinx api for this insertion sort)
     bool add(attribute_index_t attributeIndex, data_t splitValue, data_t G) {
     TopSplitBuffer_add__size:
         for (attribute_index_t i = 0; i < size_T; i++) {
             if (G > this->G[i]) {
-                // check when G is bigger than G[i] in order to insert the
-                // values in the buffer
             TopSplitBuffer_add__size__size:
                 for (attribute_index_t j = size_T - 1; j > i; j--) {
-                    // replaces value for the previous one until the insertion
-                    // slot
                     _updateCandidate(j, this->attributeIndex[j - 1],
                                      this->splitValue[j - 1], this->G[j - 1]);
                 }
@@ -29,7 +24,7 @@ class TopSplitBuffer {
                 return true;
             }
         }
-        return false; // value not inserted G < G[i]
+        return false;
     }
 
     std::tuple<bool, attribute_index_t, data_t, data_t>
