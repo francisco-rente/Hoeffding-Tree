@@ -165,19 +165,16 @@ class NodeData {
                                  class_index_t classIndex, data_t splitPoint) {
         sample_count_t distL = 0;
     NodeData_getSampleCountDistribuition__quantiles:
-
-        // TODO: paralelism asd
-        // Possible solution: sum condition values = distL, remove break and
-        // unroll Problem branch condition depends on earlier loops
-        //  #pragma HLS unroll
         for (quantile_index_t k = 0; k < N_Quantiles; k++) {
-#pragma HLS unroll
-            distL += (splitPoint > _Attributes[attributeIndex][classIndex][k]);
+            if (splitPoint > _Attributes[attributeIndex][classIndex][k]) {
+                distL++;
+            } else {
+                break;
+            }
         }
         distL = tcm::round(((data_t)distL / N_pt) *
                            _sampleCountPerClass[classIndex]);
-        sample_count_t distR = _sampleCountPerClass[classIndex] -
-                               distL; // sample distance to min and max value
+        sample_count_t distR = _sampleCountPerClass[classIndex] - distL;
 
         return {distL, distR};
     }
