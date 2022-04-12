@@ -211,7 +211,7 @@ std::tuple<bool, attribute_index_t, data_t, data_t> evaluateSplit() {
 
 ## Main conclusions 
 
-- The main takeway of this week is that, the work involved in improving the code, does n. It includes a large amount of work, not only in understanding the fpga hardware, the necessary pragmas (and their functionality), and above all, how we can restructure the code so that the pragmas we place take effect and take the most advantage of the available resources.
+- The main takeway of this week is that, the work involved in improving the code, is not as simple as adding pragmas to the code files. It includes a large amount of work, not only in understanding the fpga hardware, the necessary pragmas (and their functionality), and above all, how we can restructure the code so that the pragmas we place take effect and take the most advantage of the available resources.
 
 
 
