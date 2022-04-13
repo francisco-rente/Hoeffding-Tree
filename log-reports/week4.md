@@ -217,7 +217,7 @@ std::tuple<bool, attribute_index_t, data_t, data_t> evaluateSplit() {
 
 ## Future work for next week 
 
-- The TopSplitBuffer function is flagged in the vitis analyser has in need of pipelining. This should be the next week task. 
+- The TopSplitBuffer function is flagged in the vitis analyser as in need of pipelining. This should be the next week's task. 
 - Since it is an insertion sort, one could search for a proprietary implementation that optimizes the algorithm to hardware specifications.
 - This will be developed in the branch week5-testing, for work related purposes.
 
