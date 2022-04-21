@@ -7,6 +7,8 @@
 #include <tuple>
 
 #include "TopSplitBuffer.hpp"
+#include "TopSplitBucket.hpp"
+
 #include "TypeChooser.hpp"
 #include "TypeChooserMath.hpp"
 
@@ -67,9 +69,9 @@ class NodeData {
     data_t getImpurity() { return _gini(NULL, NULL, None); }
 
     std::tuple<bool, attribute_index_t, data_t, data_t> evaluateSplit() {
-        TopSplitBuffer<2, data_t, attribute_index_t> topSplitCandidates;
+        TopSplitBucket<data_t, attribute_index_t> topSplitCandidates;
 
-        // TODO:pipeline
+
     NodeData_evaluateSplit__attributes:
         for (attribute_index_t i = 0; i < N_Attributes; i++) {
 

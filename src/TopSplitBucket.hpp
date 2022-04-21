@@ -1,30 +1,36 @@
+//
+// Created by chico on 21/04/22.
+//
+
+#ifndef HOEFFDING_TREE_TOPSPLITBUCKET_H
+#define HOEFFDING_TREE_TOPSPLITBUCKET_H
+
 #ifndef __TOP_BUFFER_HPP__
 #define __TOP_BUFFER_HPP__
 
 #include <stdlib.h>
 #include <tuple>
 
-template <uint size_T, typename data_T, typename attribute_index_T>
-class TopSplitBuffer {
+template <typename data_T, typename attribute_index_T>
+class TopSplitBucket {
   public:
     typedef data_T data_t;
     typedef attribute_index_T attribute_index_t;
 
-    // TODO: fine a better method (possible xillinx api for this insertion sort)
+    //could this be ordered and just one verification has to occur?
+
     bool add(attribute_index_t attributeIndex, data_t splitValue, data_t G) {
-    TopSplitBuffer_add__size:
-        for (attribute_index_t i = 0; i < size_T; i++) {
-            if (G > this->G[i]) {
-            TopSplitBuffer_add__size__size:
-                for (attribute_index_t j = size_T - 1; j > i; j--) {
-                    _updateCandidate(j, this->attributeIndex[j - 1],
-                                     this->splitValue[j - 1], this->G[j - 1]);
-                }
-                _updateCandidate(i, attributeIndex, splitValue, G);
-                return true;
-            }
+        if (G > this->G[0]) {
+            _updateCandidate(0, attributeIndex, splitValue, G);
+            return true
         }
-        return false; // value not inserted G < G[i]
+        else if(G > this->G[1]){
+            _updateCandidate(0, this->attributeIndex[1], this->splitValue[1], this->G[1]);
+            _updateCandidate(1, attributeIndex, splitValue, G);
+            return true;
+        }
+
+        return false;
     }
 
     std::tuple<bool, attribute_index_t, data_t, data_t>
@@ -36,10 +42,9 @@ class TopSplitBuffer {
     data_t getG(attribute_index_t index) { return G[index]; }
 
   private:
-    attribute_index_t attributeIndex[size_T] = {0};
-    data_t splitValue[size_T] = {0};
-    data_t G[size_T] = {0};
-    bool isValid[size_T] = {false};
+    data_t splitValue[2] = {0};
+    data_t G[2] = {0};
+    bool isValid[2] = {false};
 
     void _updateCandidate(attribute_index_t index,
                           attribute_index_t attributeIndex, data_t splitValue,
@@ -52,3 +57,6 @@ class TopSplitBuffer {
 };
 
 #endif
+
+
+#endif // HOEFFDING_TREE_TOPSPLITBUCKET_H
