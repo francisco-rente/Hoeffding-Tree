@@ -68,6 +68,7 @@ template <class Node_T> class BinaryTree {
         return node;
     }
 
+
     void splitNode(_NodeClass &node, attribute_index_t attributeIndex,
                    data_t splitValue) {
         node.setSplit(attributeIndex, splitValue);
