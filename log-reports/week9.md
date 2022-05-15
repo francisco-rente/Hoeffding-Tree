@@ -269,6 +269,8 @@ krnl_Tree_1   krnl_Tree    p_updateQuantiles              170             170   
 
 ```
 
+```
+
 Timing Information (MHz)
 Compute Unit  Kernel Name  Module Name                    Target Frequency  Estimated Frequency
 ------------  -----------  -----------------------------  ----------------  -------------------
