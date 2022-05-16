@@ -334,3 +334,6 @@ sudo ip route add $specs_ip via "$vpn_ip" dev $vpn_device
 - Search for xillinx max/min implementations 
 - Run the overall hardware to see the real improvements 
 - Figure out what other topics to tackle
+
+
+- Automate build proccess: https://docs.xilinx.com/r/en-US/ug1393-vitis-application-acceleration/HLS-Report
