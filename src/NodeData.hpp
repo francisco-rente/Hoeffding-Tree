@@ -46,7 +46,7 @@ class NodeData {
     NodeData_update__attributes:
         for (attribute_index_t i = 0; i < N_Attributes; i++) {
             // TODO: pipeline of unroll
-#pragma HLS unroll
+#pragma HLS dataflow
             _updateAttributeRange(i, sample[i]);
             _updateQuantiles(i, classif, sample[i]);
         }
