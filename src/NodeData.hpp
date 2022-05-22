@@ -70,7 +70,7 @@ class NodeData {
     data_t getImpurity() { return _gini(NULL, NULL, None); }
 
     std::tuple<bool, attribute_index_t, data_t, data_t> evaluateSplit() {
-        TopSplitBuffer<2, data_t, attribute_index_t> topSplitCandidates;
+        TopSplitBucket<data_t, attribute_index_t> topSplitCandidates;
 
     NodeData_evaluateSplit__attributes:
         for (attribute_index_t i = 0; i < N_Attributes; i++) {
