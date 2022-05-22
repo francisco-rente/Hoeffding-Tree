@@ -6,8 +6,8 @@
 #include <sys/types.h>
 #include <tuple>
 
-#include "TopSplitBuffer.hpp"
 #include "TopSplitBucket.hpp"
+#include "TopSplitBuffer.hpp"
 
 #include "TypeChooser.hpp"
 #include "TypeChooserMath.hpp"
@@ -45,7 +45,8 @@ class NodeData {
 
     NodeData_update__attributes:
         for (attribute_index_t i = 0; i < N_Attributes; i++) {
-            //pipeline of unroll
+            // TODO: pipeline of unroll
+#pragma HLS unroll
             _updateAttributeRange(i, sample[i]);
             _updateQuantiles(i, classif, sample[i]);
         }
@@ -69,8 +70,7 @@ class NodeData {
     data_t getImpurity() { return _gini(NULL, NULL, None); }
 
     std::tuple<bool, attribute_index_t, data_t, data_t> evaluateSplit() {
-        TopSplitBucket<data_t, attribute_index_t> topSplitCandidates;
-
+        TopSplitBuffer<2, data_t, attribute_index_t> topSplitCandidates;
 
     NodeData_evaluateSplit__attributes:
         for (attribute_index_t i = 0; i < N_Attributes; i++) {
@@ -132,6 +132,8 @@ class NodeData {
 
     void _updateAttributeRange(attribute_index_t attributeIndex, data_t value) {
         // TODO: see what option is available here
+        // Change to assign type min max calls
+
         if (_sampleCountTotal) {
             if (value < _attributeRanges[attributeIndex][AttributeRange::Min]) {
                 _attributeRanges[attributeIndex][AttributeRange::Min] = value;
@@ -150,8 +152,9 @@ class NodeData {
                           class_index_t classif, data_t value) {
     NodeData_updateQuantiles__quantiles:
         for (quantile_index_t k = 0; k < N_Quantiles; k++) {
-            //TODO: can a pragma be used here? Maybe unroll
-
+            // TODO: can a pragma be used here? Maybe unroll
+            // is there any other pragma?
+#pragma HLS unroll
             _Attributes[attributeIndex][classif][k] -=
                 _lambda *
                 _sgnAlpha(_Attributes[attributeIndex][classif][k] - value,
